@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import React, {useEffect, useState} from 'react';
 import './styles/App.css';
-
+import contractAbi from "./utils/contractAbi.json";
 const tld = '.onion';
 const CONTRACT_ADDRESS = '0xc807087615CdBF606fF31a9D3a5eAB86847c4170';
 const App = () => {
@@ -69,7 +69,7 @@ const App = () => {
 			const { ethereum } = window;
 			if(ethereum)
 			{
-				const provider = await ethers.providers.Web3Provider(ethereum);
+				const provider = await new ethers.providers.Web3Provider(ethereum);
 				const signer = provider.getSigner();
 				const contract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer);
 				console.log("Going to pop wallet now to pay gas...")
@@ -126,7 +126,7 @@ const App = () => {
 			/>
 
 			<div className="button-container">
-				<button className='cta-button mint-button' disabled={null} onClick={null}>
+				<button className='cta-button mint-button' disabled={null} onClick={mintDomain}>
 					Mint
 				</button>  
 				<button className='cta-button mint-button' disabled={null} onClick={null}>
